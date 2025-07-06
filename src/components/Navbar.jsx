@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 
 function Navbar(){
@@ -21,7 +21,9 @@ function Navbar(){
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src="/public/Logo-Aquarell.png" alt="Logo-Aquarell" style={{ width: "60px" }} />
+        <Link to="/">
+          <img src="/public/Logo-Aquarell.png" alt="Logo-Aquarell" style={{ width: "60px" }} />
+        </Link>
         <ul className="nav-links">
           <li><a href="/comparazione">Confronta</a></li>
         </ul>
