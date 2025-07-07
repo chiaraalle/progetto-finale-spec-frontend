@@ -16,7 +16,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/comparazione" element={<ComparePage />} />
+        <Route path="/comparazione/:id1/:id2" element={<ComparePage />} />
         <Route path="/prodotti/search/:term" element={<SearchResults />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>

@@ -24,9 +24,6 @@ function Navbar(){
         <Link to="/">
           <img src="/public/Logo-Aquarell.png" alt="Logo-Aquarell" style={{ width: "60px" }} />
         </Link>
-        <ul className="nav-links">
-          <li><a href="/comparazione">Confronta</a></li>
-        </ul>
       </div>
 
       <form className="navbar-search" onSubmit={handleSearchSubmit}>
