@@ -4,7 +4,7 @@ const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-
+//chiamata API per tutti proditti
   useEffect(() => {
     fetch("http://localhost:3001/products")
       .then(res => res.json())

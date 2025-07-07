@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
 function HomePage(){
 
@@ -8,7 +9,7 @@ function HomePage(){
     const [selectedCategory, setSelectedCategory]= useState("");
     //state per ordinamento alfabetico
     const [sortBy, setSortBy] = useState("title-asc");
-
+    
     //funzione per avere un'unica categoria nel menù a tendina 
     const uniqueCategories = useMemo(() => {
         const categories = [];
@@ -32,7 +33,6 @@ function HomePage(){
             return result;
 
         }, [products, selectedCategory, sortBy]);
-
 
     return(
         <>
@@ -73,8 +73,10 @@ function HomePage(){
             <ul>
           {filteredAndSortedProducts.map(product => (
             <li key={product.id}>
-                <p><strong>{product.title}</strong></p>
-                <p>{product.category}</p>
+                <Link to={`/products/${product.id}`}>
+                    <p><strong>{product.title}</strong></p>
+                    <p>{product.category}</p>
+                </Link>
             </li>
           ))}
         </ul>
