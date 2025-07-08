@@ -1,61 +1,89 @@
-import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
 
 function ComparePage() {
-  const { id1, id2 } = useParams();
   const { products } = useGlobalContext();
+
+  // Stati per gli ID dei prodotti selezionati
+  const [selectedId1, setSelectedId1] = useState("");
+  const [selectedId2, setSelectedId2] = useState("");
+  
+  // Stati per i dati dei prodotti da visualizzare
   const [product1, setProduct1] = useState(null);
   const [product2, setProduct2] = useState(null);
 
-   useEffect(() => {
-    const fetchProduct = async (id, setProduct) => {
-      try {
-        const res = await fetch(`http://localhost:3001/products/${id}`);
-        if (!res.ok) throw new Error("Prodotto non trovato");
-        const data = await res.json();
-        setProduct(data.product);
-      } catch (error) {
-        setProduct(null);
-      }
-    };
-
-    if (id1) fetchProduct(id1, setProduct1);
-    if (id2) fetchProduct(id2, setProduct2);
-  }, [id1, id2]);
-
-  if (!product1 || !product2) {
-        return <p>Seleziona due prodotti validi per il confronto!</p>;
+  // funzioneper trovare e impostare product1 quando selectedId1 cambia
+  useEffect(() => {
+    if (selectedId1) {
+      const foundProduct = products.find(p => p.id === parseInt(selectedId1));
+      setProduct1(foundProduct || null);
+    } else {
+      setProduct1(null);
     }
+  }, [selectedId1, products]);
+
+  //funzione per trovare e impostare product2 quando selectedId2 cambia
+  useEffect(() => {
+    if (selectedId2) {
+      const foundProduct = products.find(p => p.id === parseInt(selectedId2));
+      setProduct2(foundProduct || null);
+    } else {
+      setProduct2(null);
+    }
+  }, [selectedId2, products]);
+
+  //funzione debug 
+  useEffect(() => {
+  console.log("product1", product1);
+  console.log("product2", product2);
+}, [product1, product2]);
 
   return (
-    <div style={{ display: "flex", gap: "2rem" }}>
-      <div style={{ border: "1px solid #ccc", padding: "1rem" }}>
-            <img src={`http://localhost:3001${product1.image}`} alt={product1.title}  style={{ width: '200px', height: 'auto' }} />
-            <h2>{product1.title}</h2>
-            <p><strong>Categoria:</strong>{product1.category}</p>
-            <p><strong>Prezzo:</strong> €{product1.price ? product1.price.toFixed(2) : "-"}</p>
-            <p><strong>Marca:</strong> {product1.brand}</p>
-            <p><strong>Intensità del colore:</strong>{product1.pigmentLevel}</p>
-            <p><strong>Quantità:</strong>{product1.quantity}</p>
-            <p><strong>Non tossico:</strong>{product1.nonToxic ? "Sì" : "No"}</p>
-            <p><strong>Adatto ai bambini:</strong>{product1.suitableForKids ? "Sì" : "No"}</p>   
+    <div className="compare-container">
+      <h1>Confronta Prodotti</h1>
+      <div >
+        <div>
+          <label>
+            Scegli il primo prodotto:
+          </label>
+          <select id="product1-select" value={selectedId1} onChange={e => setSelectedId1(e.target.value)}>
+            <option value=""> Seleziona </option>
+            {products.map(product => (
+              <option
+                key={product.id}
+                value={product.id}
+                disabled={product.id === parseInt(selectedId2)}
+              >
+                {product.title}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>
+            Scegli il secondo prodotto:
+          </label>
+          <select id="product2-select" value={selectedId2} onChange={e => setSelectedId2(e.target.value)}>
+            <option value=""> Seleziona </option>
+            {products.map(product => (
+              <option
+                key={product.id}
+                value={product.id}
+                disabled={product.id === parseInt(selectedId1)}
+              >
+                {product.title}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-
-      <div style={{ border: "1px solid #ccc", padding: "1rem" }}>
-       <img src={`http://localhost:3001${product2.image}`} alt={product2.title}  style={{ width: '200px', height: 'auto' }} />
-            <h2>{product2.title}</h2>
-            <p><strong>Categoria:</strong>{product2.category}</p>
-            <p><strong>Prezzo:</strong> €{product2.price ? product2.price.toFixed(2) : "-"}</p>
-            <p><strong>Marca:</strong> {product2.brand}</p>
-            <p><strong>Intensità del colore:</strong>{product2.pigmentLevel}</p>
-            <p><strong>Quantità:</strong>{product2.quantity}</p>
-            <p><strong>Non tossico:</strong>{product2.nonToxic ? "Sì" : "No"}</p>
-            <p><strong>Adatto ai bambini:</strong>{product2.suitableForKids ? "Sì" : "No"}</p>  
-        
+      <div className="product-card-container">
+        <ProductCard product={product1} />
+        <ProductCard product={product2} />
       </div>
     </div>
-  );
+  )
 }
 
 export default ComparePage;
