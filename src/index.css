@@ -1,16 +1,36 @@
-/*NAVBAR STYLE*/
+:root {
+  --color-primary: #256D85;         
+  --color-secondary: #A3B18A;       
+  --color-accent: #F7D1D1;          
+  --color-background: #F5F5F5;      
+  --color-text: #222222;          
+}
+/* LINKs*/
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f5f5f5;
-  padding: 0.5rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: var(--color-background);
+  box-shadow: 0 2px 8px rgba(138,124,168, 0.2);
+  padding: 0 1.5rem;
 }
 
 .navbar-logo {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .logo img {
@@ -28,19 +48,20 @@
 
 .nav-links li a {
   text-decoration: none;
-  color: #222;
+  color: var(--color-text);
   font-weight: 500;
   transition: color 0.2s;
 }
 
 .nav-links li a:hover {
-  color: #0077b6;
+  color: var(--color-primary);
 }
 
 .navbar-search {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-grow: 1.5;
 }
 
 .searchbar {
@@ -53,21 +74,23 @@
 }
 
 .searchbar:focus {
-  border: 1.5px solid #0077b6;
+  border: 1.5px solid var(--color-primary);
 }
 
-.favorites-icon {
-  color: #e63946;
+.favorites-icon{
+  color: var(--color-primary);
   font-size: 1.5rem;
   cursor: pointer;
   transition: color 0.2s;
+  flex-grow: 1;
 }
+
 
 .favorites-icon:hover {
-  color: #b5179e;
+  color: var(--color-accent);
 }
 
-/*HERO STYLE*/
+/* HERO */
 .hero {
   position: relative;
   height: 400px;
@@ -90,15 +113,18 @@
   font-size: 2rem;
   text-align: center;
   font-weight: bold;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
-/*FOOTER STYLE*/
+
+/* FOOTER */
 .footer {
-  background: #f5f5f5;
+  background: var(--color-background);
   padding: 1.5rem 0;
   text-align: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #d0c8e8;
   margin-top: 2rem;
+  color: var(--color-text);
 }
 
 .footer-content {
@@ -113,12 +139,134 @@
 }
 
 .footer-social a {
-  color: #222;
+  color: var(--color-text);
   margin: 0 0.5rem;
   font-size: 1.4rem;
   transition: color 0.2s;
 }
 
 .footer-social a:hover {
-  color: #0077b6;
+  color: var(--color-primary);
 }
+
+/* BOTTONI */
+button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-accent);
+}
+
+/*LABEL FILTRI*/
+.filters-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-block: 1rem;
+  align-items: center;
+}
+
+label {
+  text-align: center;
+  color: var(--color-text);
+  margin-right: 1rem;
+}
+
+select {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+/*LISTA PRODOTTI */
+h2{
+  text-align: center;
+  margin-inline: 2rem;
+  color: var(--color-primary);
+}
+
+.products-list{
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; 
+  padding: 1rem;
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 0.7rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  list-style: none;
+}
+
+li:hover {
+  background-color: var(--color-accent);
+}
+
+/* CARD PRODOTTO */
+.card-prodotto {
+  display: flex;
+  padding: 1rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 3px 8px rgba(138, 124, 168, 0.15);
+  margin: 2rem auto;
+  max-width: 800px;
+  color: var(--color-text);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.card-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.card-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-details h2 {
+  margin-top: 0;
+  color: var(--color-primary);
+  font-size: 1.6rem;
+  width: 100%;
+  margin: 0.4rem 0;
+}
+
+.card-details p {
+  margin: 0.4rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* CONTENITORI */
+.compare-container, .search-results-page {
+  padding: 1rem 2rem;
+  max-width: 900px;
+  margin: auto;
+  color: var(--color-text);
+}
+

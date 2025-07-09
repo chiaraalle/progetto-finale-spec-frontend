@@ -43,10 +43,11 @@ function HomePage(){
                 <h1>Scopri i colori dell'arte. Confronta, scegli, crea.</h1>
             </div>
         </div>
-        <div>
+        <h2>I nostri prodotti</h2>
+        <div className="filters-container">
         {/*Menù a tendina categorie*/}
         <label>
-            Filtra per categoria:
+            <strong>Filtra per categoria:</strong>
             <select 
              value={selectedCategory}
              onChange={e => setSelectedCategory(e.target.value)}
@@ -64,22 +65,25 @@ function HomePage(){
         </label>
         {/*Menù a tendina ordine alfabetico */}
         <label>
-        Ordina per:
+        <strong>Ordina per:</strong>
             <select value={sortBy} onChange={e => setSortBy(e.target.value)}>
                 <option value="title-asc">Titolo (A-Z)</option>
                 <option value="title-desc">Titolo (Z-A)</option>
             </select>
         </label>
-            <ul>
-          {filteredAndSortedProducts.map(product => (
-            <li key={product.id}>
-                <Link to={`/products/${product.id}`}>
-                    <p><strong>{product.title}</strong></p>
-                    <p>{product.category}</p>
-                </Link>
-            </li>
-          ))}
-        </ul>
+        </div>
+        {/*Lista prodotti */}
+        <div>
+            <ul className="products-list">
+                {filteredAndSortedProducts.map(product => (
+                    <li key={product.id}>
+                        <Link to={`/products/${product.id}`}>
+                            <p><strong>{product.title}</strong></p>
+                            <p>{product.category}</p>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </div>
         </>
     )

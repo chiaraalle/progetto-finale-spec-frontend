@@ -13,31 +13,29 @@ function ComparePage() {
   const [product1, setProduct1] = useState(null);
   const [product2, setProduct2] = useState(null);
 
-  // funzioneper trovare e impostare product1 quando selectedId1 cambia
-  useEffect(() => {
-    if (selectedId1) {
-      const foundProduct = products.find(p => p.id === parseInt(selectedId1));
-      setProduct1(foundProduct || null);
-    } else {
-      setProduct1(null);
-    }
-  }, [selectedId1, products]);
+  //stato per il bottone compare
+  const [readyToCompare, setReadyToCompare] = useState(false);
 
-  //funzione per trovare e impostare product2 quando selectedId2 cambia
-  useEffect(() => {
-    if (selectedId2) {
-      const foundProduct = products.find(p => p.id === parseInt(selectedId2));
-      setProduct2(foundProduct || null);
-    } else {
-      setProduct2(null);
-    }
-  }, [selectedId2, products]);
 
-  //funzione debug 
-  useEffect(() => {
-  console.log("product1", product1);
-  console.log("product2", product2);
-}, [product1, product2]);
+   // funzioneper trovare i prodotti seleionati e per att.il bottone confronta
+  const handleCompareClick = () => {
+    if(selectedId1 && selectedId2){
+      const product1 = products.find(product => product.id === parseInt(selectedId1));
+      const product2 = products.find(product => product.id === parseInt(selectedId2));
+      setProduct1(product1);
+      setProduct2(product2);
+      setReadyToCompare(true);
+    }
+  };
+  //funzione per bottone reset
+  const handleResetClick = () => {
+    setSelectedId1("");
+    setSelectedId2("");
+    setProduct1(null);
+    setProduct2(null);
+    setReadyToCompare(false);
+  };
+
 
   return (
     <div className="compare-container">
@@ -82,6 +80,26 @@ function ComparePage() {
         <ProductCard product={product1} />
         <ProductCard product={product2} />
       </div>
+      <div className="button-container">
+      <button
+        disabled={!(selectedId1 && selectedId2)}
+        onClick={handleCompareClick}
+      >
+        Confronta
+      </button>
+      <button onClick={handleResetClick}>Reset</button>
+    </div>
+
+    {readyToCompare && product1 && product2 && (
+      <div className="product-card-container">
+        <ProductCard
+          product={product1}
+        />
+        <ProductCard
+          product={product2}
+        />
+      </div>
+    )}
     </div>
   )
 }

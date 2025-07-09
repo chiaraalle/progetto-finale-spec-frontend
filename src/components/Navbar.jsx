@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
+import { useGlobalContext } from "../context/GlobalContext";
 
 function Navbar(){
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
+  const { favorites } = useGlobalContext();
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -35,10 +38,15 @@ function Navbar(){
           value={searchTerm}
           onChange={handleInputChange}
         />
-        <div className="favorites-icon">
-          <FaHeart />
-        </div>
       </form>
+      <div className="navbar-icons">
+        <Link to="/wishlist" className="favorites-icon">
+          <FaHeart />
+          {favorites.length > 0 && (
+            <span className="favorites-count">{favorites.length}</span>
+          )}
+        </Link>
+      </div>
     </nav>
   );
 }

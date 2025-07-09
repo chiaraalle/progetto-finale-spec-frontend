@@ -4,6 +4,8 @@ const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  //state per i preferiti
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     // Primo fetch per ottenere tutti gli ID dei prodotti
@@ -29,8 +31,17 @@ export const GlobalProvider = ({ children }) => {
         .catch(err => console.error("Errore nel caricamento dei prodotti:", err));
   }, []);
 
+  //funzione per preferiti
+  const toggleFavorite = (product) => {
+    setFavorites(prev =>
+      prev.some(p => p.id === product.id)
+        ? prev.filter(p => p.id !== product.id)
+        : [...prev, product]
+    );
+  };
+
   return (
-    <GlobalContext.Provider value={{ products }}>
+    <GlobalContext.Provider value={{ products, toggleFavorite, favorites }}>
       {children}
     </GlobalContext.Provider>
   );
