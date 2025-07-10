@@ -1,8 +1,7 @@
 import { useGlobalContext } from "../context/GlobalContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import React from "react";
 
-const ProductCard = React.memo(({ product }) => {
+const ProductCard = ({ product }) => {
   // se non c'è prodotto mostra messaggio
   if (!product) {
     return (
@@ -45,7 +44,7 @@ const ProductCard = React.memo(({ product }) => {
       </div>
     </>
   );
-});
+};
 
 
 
