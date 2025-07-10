@@ -7,6 +7,7 @@ import SearchResults from "./components/SearchResults";
 import Footer from "./components/Footer";
 import ProductDetail from "./components/ProductDetail";
 import Wishlist from "./components/Wishlist";
+import Hero from "./components/Hero";
 
 function App() {
 
@@ -14,15 +15,20 @@ function App() {
     <>
     <GlobalProvider>
       <BrowserRouter>
+   <div className="app-container">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/comparazione" element={<ComparePage />} />
-        <Route path="/prodotti/search/:term" element={<SearchResults />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-      </Routes>
+      <Hero />
+      <div className="page-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/comparazione" element={<ComparePage />} />
+          <Route path="/prodotti/search/:term" element={<SearchResults />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+        </Routes>
+      </div>
       <Footer />
+    </div>
     </BrowserRouter>
     </GlobalProvider>
     </>

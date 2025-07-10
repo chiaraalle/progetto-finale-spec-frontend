@@ -3,11 +3,12 @@ import { useGlobalContext } from "../context/GlobalContext";
 import ProductCard from "./ProductCard";
 
 function ProductDetail() {
+  // prendo il parametro "id" dalla URL per avere id prodott
   const { id } = useParams();
   const { products } = useGlobalContext();
 
   // Trova il prodotto selezionato dal context
-  const product = products.find(p => p.id === parseInt(id));
+  const product = products.find(product => product.id === parseInt(id));
 
   if (!product) {
     return <div>Caricamento...</div>;

@@ -5,6 +5,25 @@
   --color-background: #F5F5F5;      
   --color-text: #222222;          
 }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principale dell'app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1rem;
+}
+
 /* LINKs*/
 a {
   color: var(--color-primary);
@@ -79,15 +98,33 @@ a:hover {
 
 .favorites-icon{
   color: var(--color-primary);
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
   transition: color 0.2s;
   flex-grow: 1;
+  position: relative;
+  display: inline-block;
 }
 
 
 .favorites-icon:hover {
   color: var(--color-accent);
+}
+
+
+.favorites-count {
+  position: absolute;
+  top: -5px;
+  right: -20px;
+  background-color: var(--color-secondary);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 40%;
+  line-height: 1;
+  min-width: 20px;
+  text-align: center;
 }
 
 /* HERO */
@@ -159,11 +196,21 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 1rem;
 }
 
 button:hover {
   background-color: var(--color-accent);
 }
+
+/*SEARCH-RESULT*/
+.select-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 
 /*LABEL FILTRI*/
 .filters-container{
@@ -270,3 +317,223 @@ li:hover {
   color: var(--color-text);
 }
 
+/*WISHLIST*/
+.lista-preferiti {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-img-message{
+  text-align: center;
+}
+
+.text-img-message img {
+  width: 80px;
+}
+
+.wishlist-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wishlist-flex li {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+  transition: none; 
+  flex-basis: calc(100% / 6 - 1rem);
+  box-sizing: border-box;
+}
+
+.wishlist-flex li:hover {
+  background: #fff; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.wishlist-flex li img {
+  width: 100%;         
+  height: 150px;   
+  object-fit: cover;  
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+
+.wishlist-flex li > * {
+  margin: 0.2rem 0;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.btn-rimuovi {
+  margin-top: 1rem;
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-rimuovi:hover {
+  background-color: #e38e8e;
+}
+
+/* COMPARE PAGE */
+.compare-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  color: var(--color-text);
+  background: var(--color-background);
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(138, 124, 168, 0.15);
+}
+
+.compare-container h1 {
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.compare-container > div {
+  margin-bottom: 1.5rem;
+}
+
+/* Contenitore per i due select */
+.compare-container .select-container {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-primary);
+}
+
+select {
+  width: 100%;
+  max-width: 350px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Messaggio centrale */
+.select-message {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Bottoni */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--color-accent);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Tabella di confronto */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(138, 124, 168, 0.1);
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.compare-table thead {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.compare-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.compare-table td:first-child {
+  font-weight: bold;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.compare-img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.compare-img:hover {
+  transform: scale(1.05);
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .wishlist-flex li {
+    flex-basis: calc(100% / 4 - 1rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .wishlist-flex li {
+    flex-basis: 100%;
+  }
+}
