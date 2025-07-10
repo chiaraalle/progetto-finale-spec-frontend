@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import { useGlobalContext } from "../context/GlobalContext";
+
+function debounce(callback, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
+}
 
 function Navbar() {
   // Stato per memorizzare il termine di ricerca digitato dall'utente
@@ -11,20 +21,32 @@ function Navbar() {
   // Recupera i prodotti preferiti dal context globale
   const { favorites } = useGlobalContext();
 
-  //funzione per il cambiamento dell'input di ricerca
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+ //funzione per il cambiamento dell'input di ricerca
+  const debouncedSearch = useCallback(
+  debounce((term) => {
+    if (term.trim()) {
+      navigate(`/prodotti/search/${term.trim()}`);
+    } else {
+      navigate("/");
+    }
+  }, 500),
+  [navigate]
+);
+
+const handleInputChange = (e) => {
+  const value = e.target.value;
+  setSearchTerm(value);
+  debouncedSearch(value);
+};
 
   // funzione per l'invio del form di ricerca
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = useCallback((e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Se il campo non è vuoto, naviga alla pagina search
       navigate(`/prodotti/search/${searchTerm.trim()}`);
       setSearchTerm("");
     }
-  };
+  }, [searchTerm, navigate]);
 
   return (
     <nav className="navbar">
