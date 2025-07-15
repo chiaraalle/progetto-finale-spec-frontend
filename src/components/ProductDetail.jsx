@@ -8,7 +8,7 @@ function ProductDetail() {
   const { products } = useGlobalContext();
 
   // Trova il prodotto selezionato dal context
-  const product = products.find(product => product.id === parseInt(id));
+  const product = products.find(product => product.id === parseInt(id)); //utilizzo parseInt perchè useParams ci ritorna sempre una stringa
 
   if (!product) {
     return <div>Caricamento...</div>;

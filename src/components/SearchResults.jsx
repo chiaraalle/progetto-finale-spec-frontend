@@ -3,7 +3,7 @@ import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useMemo } from 'react';
 
 function SearchResults() {
-  // prendo il termine di ricerca daURL
+  // prendo il termine di ricerca da URL
   const { term } = useParams();
 
   const { products } = useGlobalContext();

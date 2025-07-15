@@ -14,7 +14,7 @@ function HomePage(){
     const uniqueCategories = useMemo(() => {
         const categories = [];
         products.forEach(product => {
-        if (!categories.includes(product.category)) {
+        if (!categories.includes(product.category)) { //se nella categoria non c'è incluso la categoria di quel prodotto
             categories.push(product.category);
             }
         });
@@ -26,9 +26,9 @@ function HomePage(){
             let result = selectedCategory ? products.filter(product => product.category === selectedCategory) : products;
 
             if (sortBy === "title-asc") {
-                result.sort((a, b) => a.title.localeCompare(b.title));
+                result.sort((a, b) => a.title.localeCompare(b.title)); //-1 a prima di b.
             } else {
-                result.sort((a, b) => b.title.localeCompare(a.title));
+                result.sort((a, b) => b.title.localeCompare(a.title)); //1 a dopo di b.
             }
             return result;
 

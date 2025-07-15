@@ -1,11 +1,12 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import { useGlobalContext } from "../context/GlobalContext";
 
+//funzione generica di debounce per posticipare l'esecuzione finché l’utente non smette di chiamare la funzione
 function debounce(callback, delay) {
   let timer;
-  return (...args) => {
+  return (...args) => { //argomenti passati alla funzione
     clearTimeout(timer);
     timer = setTimeout(() => {
       callback(...args);
@@ -16,28 +17,28 @@ function debounce(callback, delay) {
 function Navbar() {
   // Stato per memorizzare il termine di ricerca digitato dall'utente
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //per spostare utente
 
   // Recupera i prodotti preferiti dal context globale
   const { favorites } = useGlobalContext();
 
- //funzione per il cambiamento dell'input di ricerca
+ //funzione per il cambiamento dell'input di ricerca 
   const debouncedSearch = useCallback(
-  debounce((term) => {
-    if (term.trim()) {
-      navigate(`/prodotti/search/${term.trim()}`);
-    } else {
-      navigate("/");
-    }
-  }, 500),
-  [navigate]
-);
+    debounce((term) => {
+      if (term.trim()) {
+        navigate(`/prodotti/search/${term.trim()}`);
+      } else {
+        navigate("/");
+      }
+    }, 500),
+    [navigate]
+  );
 
-const handleInputChange = (e) => {
-  const value = e.target.value;
-  setSearchTerm(value);
-  debouncedSearch(value);
-};
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    debouncedSearch(value);
+  };
 
   // funzione per l'invio del form di ricerca
   const handleSearchSubmit = useCallback((e) => {
